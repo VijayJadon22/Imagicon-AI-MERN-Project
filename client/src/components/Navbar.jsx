@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { assets } from "../assets/assets.js";
 import { Link, useNavigate } from "react-router-dom";
+import { useAppContext } from "../context/AppContext.jsx";
 
 const Navbar = () => {
-  const [user, setUser] = useState(null);
+  const { user, setUser } = useAppContext();
   const credits = 4;
   const navigate = useNavigate();
   return (
-    <div className="w-full border flex justify-between items-center py-4">
+    <div className="w-full flex justify-between items-center py-4">
       <Link to={"/"} className="flex items-center">
         <img
           className="w-8 sm:w-10 lg:w-20"
@@ -36,7 +37,7 @@ const Navbar = () => {
                 alt="profile-icon"
               />
               <div className="absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-12">
-                <ul className="list-none m-0 p-2 bg-white rounded-md border text-sm">
+                <ul className="list-none m-0 p-2 bg-white rounded-md shadow-2xl text-sm">
                   <li className="py-1 px-2 cursor-pointer pr-10">Logout</li>
                 </ul>
               </div>
