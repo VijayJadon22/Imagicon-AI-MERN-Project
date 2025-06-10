@@ -8,25 +8,28 @@ const Navbar = () => {
   const credits = 4;
   const navigate = useNavigate();
   return (
-    <div className="w-full flex justify-between items-center py-4">
-      <Link to={"/"} className="flex items-center">
+    <div className="w-full flex justify-between items-center py-2 ">
+      <Link to={"/"} className="flex items-center ">
         <img
-          className="w-8 sm:w-10 lg:w-20"
+          className="w-8 sm:w-10 lg:w-20 cursor-pointer"
           src={assets.imagiconLogo}
           alt="Imagicon-Logo"
         />
-        <p className="text-lg md:text-2xl font-bold">imagicon</p>
+        <p className="text-lg md:text-2xl font-bold cursor-pointer">imagicon</p>
       </Link>
       <div>
         {user ? (
           //   if user is logged in we will display logout and credits available section
           <div className="flex items-center gap-2 sm:gap-3">
-            <div className="flex gap-2 items-center px-4 sm:px-6 py-1.5 sm:py-2 text-sm bg-cyan-200 text-gray-800 rounded-full hover:scale-105 transition-all duration-700 ease-in-out cursor-pointer ">
+            <Link
+              to={'/buy'}
+              className="flex gap-2 items-center px-4 sm:px-6 py-1.5 sm:py-2 text-sm bg-cyan-200 text-gray-800 rounded-full hover:scale-105 transition-all duration-700 ease-in-out cursor-pointer "
+            >
               <img src={assets.creditStar} className="w-5" alt="credit-star" />
               <span className="text-xs sm:text-sm text-gray-600">
                 Credits Left: {credits}
               </span>
-            </div>
+            </Link>
             <span className="text-xs sm:text-sm text-gray-600 max-sm:hidden ">
               Hii {user}
             </span>
