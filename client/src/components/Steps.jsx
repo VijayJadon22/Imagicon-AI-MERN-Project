@@ -3,7 +3,7 @@ import { stepsData } from "../assets/assets.js";
 
 const Steps = () => {
   return (
-    <div className="flex flex-col items-center mb-16">
+    <div className="flex flex-col items-center mb-20">
       <h1 className="text-4xl mb-2">How it works</h1>
       <p className="text-sm text-gray-500 mb-8">
         Transform words into stunning images
@@ -14,7 +14,7 @@ const Steps = () => {
                       <img src={item.icon} alt={item.title} width={40}/>
                       <div className="flex flex-col items-start">
                           <p className="text-sm">{ item.title}</p>
-                          <p className="text-xs text-gray-400">{ item.description}</p>
+                          <p className="text-xs text-gray-500">{ item.description}</p>
                       </div>
                   </div>
               ))}
