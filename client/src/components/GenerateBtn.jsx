@@ -1,11 +1,32 @@
 import React from "react";
+import { motion } from "framer-motion";
+import { useAppContext } from "../context/AppContext";
+import { useNavigate } from "react-router-dom";
 
 const GenerateBtn = () => {
+  const { user, setShowLogin } = useAppContext();
+  const navigate = useNavigate();
+  const handleClick = () => {
+    if (user) {
+      navigate("/result");
+    } else {
+      setShowLogin(true);
+    }
+  };
   return (
-    <div className="flex items-center justify-center mb-20 ">
+    <motion.div
+      className="flex items-center justify-center mb-20 "
+      initial={{ opacity: 0, y: 100 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1 }}
+      viewport={{ once: true }}
+    >
       <div className="flex flex-col items-center max-w-2xl text-center">
         <h1 className="text-4xl mb-2">Create magic, Try it now! </h1>
-        <button className="relative overflow-hidden bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-2 rounded-full  transition-all duration-300 group mt-4 cursor-pointer">
+        <motion.button
+          className="relative overflow-hidden bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-2 rounded-full  transition-all duration-300 group mt-4 cursor-pointer"
+          whileHover={{ scale: 1.04 }}
+        >
           {/* Rotating neon border */}
           <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 animate-spin"></div>
@@ -13,13 +34,16 @@ const GenerateBtn = () => {
           </div>
 
           {/* Button content */}
-          <span className="relative z-10 flex items-center gap-2">
+          <span
+            onClick={handleClick}
+            className="relative z-10 flex items-center gap-2"
+          >
             Generate Images
             <span className="animate-pulse">✨</span>
           </span>
-        </button>
+        </motion.button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
