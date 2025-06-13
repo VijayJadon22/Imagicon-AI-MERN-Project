@@ -4,8 +4,12 @@ import HomePage from "./pages/HomePage";
 import Result from "./pages/Result";
 import BuyCredits from "./pages/BuyCredits";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Login from "./components/Login";
+import { useAppContext } from "./context/AppContext";
 
 function App() {
+  const { showLogin } = useAppContext();
   return (
     <div className="relative border px-4 sm:px-10 md:px-14 lg:px-28 min-h-screen bg-gradient-to-br from-white via-gray-50 to-slate-100 w-full">
       <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,.02)_1px,transparent_1px)] bg-[size:20px_20px] "></div>
@@ -23,11 +27,13 @@ function App() {
 
       <div className="relative z-10">
         <Navbar />
+        {showLogin && <Login />}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/result" element={<Result />} />
           <Route path="/buy" element={<BuyCredits />} />
         </Routes>
+        <Footer />
       </div>
     </div>
   );
