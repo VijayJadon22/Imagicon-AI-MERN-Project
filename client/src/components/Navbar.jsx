@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAppContext } from "../context/AppContext.jsx";
 
 const Navbar = () => {
-  const { user, setUser } = useAppContext();
+  const { user, setShowLogin } = useAppContext();
   const credits = 4;
   const navigate = useNavigate();
   return (
@@ -22,7 +22,7 @@ const Navbar = () => {
           //   if user is logged in we will display logout and credits available section
           <div className="flex items-center gap-2 sm:gap-3">
             <Link
-              to={'/buy'}
+              to={"/buy"}
               className="flex gap-2 items-center px-4 sm:px-6 py-1.5 sm:py-2 text-sm bg-cyan-200 text-gray-800 rounded-full hover:scale-105 transition-all duration-700 ease-in-out cursor-pointer "
             >
               <img src={assets.creditStar} className="w-5" alt="credit-star" />
@@ -55,7 +55,10 @@ const Navbar = () => {
             >
               Pricing
             </p>
-            <button className="px-8 py-1 bg-blue-600 hover:scale-105 transition-all ease-in-out duration-500 text-white rounded-2xl cursor-pointer">
+            <button
+              onClick={() => setShowLogin(true)}
+              className="px-8 py-1 bg-blue-600 hover:scale-105 transition-all ease-in-out duration-500 text-white rounded-2xl cursor-pointer"
+            >
               Login
             </button>
           </div>
