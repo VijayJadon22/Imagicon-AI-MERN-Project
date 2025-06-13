@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { assets } from "../assets/assets.js";
+import { motion } from "framer-motion";
 
 const Result = () => {
   const [image, setImage] = useState(assets.puppy_img);
@@ -13,7 +14,13 @@ const Result = () => {
     e.preventDefault();
   };
   return (
-    <div className="flex items-center justify-center mb-20 px-2">
+    <motion.div
+      className="flex items-center justify-center mb-20 px-2"
+      initial={{ opacity: 0, y: 100 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1 }}
+      viewport={{ once: true }}
+    >
       <form onSubmit={handleSubmit} className="w-full lg:w-2/3">
         <div className="flex flex-col items-center w-full  min-h-[70vh] justify-center ">
           <h1 className="text-xl md:text-2xl text-center font-semibold mb-1">
@@ -22,16 +29,6 @@ const Result = () => {
           <p className="text-xs text-gray-600 mb-4">
             Let Your Vision Come to Life 🪄
           </p>
-          {/* <div className="relative w-full max-w-sm">
-            <img src={image} alt="doremon" className="rounded" />
-
-
-            <div className="absolute top-0 left-0 bg-black w-full h-full z-1000">hello</div>
-
-
-            
-            <span className="absolute bottom-0 left-0 h-0.5 bg-blue-500 w-full transition-all duration-[10s]" />
-          </div> */}
 
           <div className="relative w-full max-w-sm">
             {isLoading ? (
@@ -92,7 +89,7 @@ const Result = () => {
           )}
         </div>
       </form>
-    </div>
+    </motion.div>
   );
 };
 
