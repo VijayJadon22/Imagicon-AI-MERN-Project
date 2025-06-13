@@ -1,11 +1,18 @@
 import React from "react";
 import { assets, subscriptionPlan } from "../assets/assets.js";
 import { useAppContext } from "../context/AppContext.jsx";
+import { motion } from "framer-motion";
 
 const BuyCredits = () => {
-  const { user, setUser } = useAppContext();
+  const { user } = useAppContext();
   return (
-    <div className="flex flex-col items-center min-h-[80vh] text-center mb-10">
+    <motion.div
+      className="flex flex-col items-center min-h-[80vh] text-center mb-10"
+      initial={{ opacity: 0, y: 100 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1 }}
+      viewport={{ once: true }}
+    >
       <h1 className="text-2xl font-semibold mb-8">Choose the imagicon plan</h1>
       <div className="flex flex-wrap justify-center gap-6 text-left">
         {subscriptionPlan.map((item, index) => (
@@ -26,7 +33,7 @@ const BuyCredits = () => {
           </div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
