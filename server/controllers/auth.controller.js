@@ -32,10 +32,10 @@ export const login = async (req, res) => {
 
         const user = await User.findOne({ email });
         if (!user) return res.status(400).json({ message: "User does not exist", success: false });
-        
+
         const isPasswordMatch = await user.comparePassword(password);
         if (!isPasswordMatch) {
-            return res.status(400).json({ message: "Invalid credentials", success: false });
+            return res.status(400).json({ message: "Invalid Password", success: false });
         }
 
         generateTokenAndSetCookie(user, res);
@@ -51,10 +51,24 @@ export const login = async (req, res) => {
         return res.status(500).json({ message: "Internal Server Error", success: false });
     }
 }
-export const logout = async (req, res) => {
+export const userCredits = async (req, res) => {
     try {
+        const userId = req.user._id;
+        const user = await User.findById(userId);
 
+        return res.status(200).json({
+            success: true,
+            user: { name: user.name, email: user.email, creditBalance: user.creditBalance }
+        });
     } catch (error) {
-
+        console.error("User Credits Error:", error.message);
+        return res.status(500).json({ message: "Internal Server Errors", success: false });
     }
 }
+// export const logout = async (req, res) => {
+//     try {
+
+//     } catch (error) {
+
+//     }
+// }
