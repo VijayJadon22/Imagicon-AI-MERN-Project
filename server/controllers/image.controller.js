@@ -31,7 +31,7 @@ export const generateImage = async (req, res) => {
         }
 
         if (user.creditBalance <= 0) {
-            return res.status(400).json({ success: false, message: "Insufficient Credits", creditBalance: user.creditBalance });
+            return res.status(400).json({ success: false, message: "Insufficient Credits, Buy More Credits", creditBalance: user.creditBalance });
         }
 
         //if creditBalance is available then we will generate image using Nebius AI which will let use generate image using FLUX
