@@ -17,7 +17,7 @@ export const signup = async (req, res) => {
 
         return res.status(201).json({
             success: true,
-            user: { name: user.name, email: user.email },
+            user: { name: user.name, email: user.email, creditBalance: user.creditBalance },
             message: "User registered successfully"
         });
     } catch (error) {
@@ -42,7 +42,7 @@ export const login = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            user: { name: user.name, email: user.email },
+            user: { name: user.name, email: user.email, creditBalance: user.creditBalance },
             message: "User logged in successfully"
         });
 
@@ -63,6 +63,18 @@ export const userCredits = async (req, res) => {
     } catch (error) {
         console.error("User Credits Error:", error.message);
         return res.status(500).json({ message: "Internal Server Errors", success: false });
+    }
+}
+
+export const getUser = async (req, res) => {
+    try {
+        if (!req.user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+        return res.status(200).json({ success: true, user: req.user });
+    } catch (error) {
+        console.error("Error fetching user:", error.message);
+        return res.status(500).json({ success: false, message: "Internal Server Error" });
     }
 }
 // export const logout = async (req, res) => {
