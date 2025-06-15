@@ -4,9 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAppContext } from "../context/AppContext.jsx";
 
 const Navbar = () => {
-  const { user, setShowLogin } = useAppContext();
-  const credits = 4;
+  const { user, setShowLogin, credit } = useAppContext();
   const navigate = useNavigate();
+  
   return (
     <div className="w-full flex justify-between items-center py-2 ">
       <Link to={"/"} className="flex items-center ">
@@ -27,11 +27,11 @@ const Navbar = () => {
             >
               <img src={assets.creditStar} className="w-5" alt="credit-star" />
               <span className="text-xs sm:text-sm text-gray-600">
-                Credits Left: {credits}
+                Credits Left: {credit}
               </span>
             </Link>
             <span className="text-xs sm:text-sm text-gray-600 max-sm:hidden ">
-              Hii {user}
+              Hii {user.split(" ")[0]}
             </span>
             <div className="relative group cursor-pointer">
               <img
