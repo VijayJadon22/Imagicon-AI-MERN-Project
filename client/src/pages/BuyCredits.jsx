@@ -4,7 +4,15 @@ import { useAppContext } from "../context/AppContext.jsx";
 import { motion } from "framer-motion";
 
 const BuyCredits = () => {
-  const { user, handlePayment } = useAppContext();
+  const { user, handlePayment, setShowLogin } = useAppContext();
+
+  const handleBuyCredits = (item) => {
+    if (user) {
+      handlePayment(item);
+    } else {
+      setShowLogin(true);
+    }
+  };
   return (
     <motion.div
       className="flex flex-col items-center min-h-[80vh] text-center mb-10"
@@ -30,7 +38,7 @@ const BuyCredits = () => {
               <span className="text-xs ">/ {item.credits} credits</span>
             </div>
             <button
-              onClick={() => handlePayment(item)}
+              onClick={() => handleBuyCredits(item)}
               className="w-full bg-black text-white mt-8 text-sm rounded-md py-2.5 min-w-52 p-1 border cursor-pointer"
             >
               {user ? "Buy Plan" : "Get Started"}
