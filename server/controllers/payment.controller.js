@@ -1,5 +1,5 @@
 import User from "../models/user.model.js";
-import { razorpay } from "../utils/razorpay.js";
+import  {razorpay}  from "../utils/razorpay.js";
 import crypto from "crypto";
 
 export const createRazorpayOrder = async (req, res) => {
@@ -13,7 +13,7 @@ export const createRazorpayOrder = async (req, res) => {
             payment_capture: 1, // Auto-capture payment
         };
 
-        const order = await razorpayInstance.orders.create(options); // Create Razorpay order
+        const order = await razorpay.orders.create(options); // Create Razorpay order
         return res.status(200).json({ success: true, orderId: order.id, amount: order.amount }); // Send order ID to frontend
     } catch (error) {
         console.error("Error creating Razorpay order:", error);
@@ -24,6 +24,7 @@ export const createRazorpayOrder = async (req, res) => {
 export const verifyRazorpayPayment = async (req, res) => {
     try {
         const { razorpay_order_id, razorpay_payment_id, razorpay_signature, userId, credits } = req.body;
+        // console.log(`razorpay_order_id: ${razorpay_order_id}, razorpay_payment_id: ${razorpay_payment_id}, razorpay_signature: ${razorpay_signature}, userId: ${userId}, credits: ${credits}`)
 
         const generatedSignature = crypto
             .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
