@@ -3,11 +3,51 @@ import { assets } from "../assets/assets.js";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../context/AppContext.jsx";
 import { motion } from "framer-motion";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [state, setState] = useState("Login");
-  const { setShowLogin } = useAppContext();
-  const handleSubmit = () => {};
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const { setShowLogin, loginUser, signupUser } = useAppContext();
+
+  const handleInputChange = (e) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [e.target.name]: e.target.value.trim(),
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (state === "Login") {
+      if (formData.email === "" || formData.password === "") {
+        toast.error("All Fields are required", { id: "error-toast" });
+      } else {
+        loginUser({
+          email: formData.email,
+          password: formData.password,
+        });
+      }
+    } else {
+      if (
+        formData.name === "" ||
+        formData.email === "" ||
+        formData.password === ""
+      ) {
+        toast.error("All Fields are required", { id: "error-toast" });
+      } else {
+        signupUser({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        });
+      }
+    }
+  };
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -20,7 +60,7 @@ const Login = () => {
     <motion.div
       className="fixed top-0 left-0 right-0 bottom-0 z-50 w-full backdrop-blur-sm flex justify-center items-center"
       initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1,  }}
+      animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.7 }}
     >
       <form
@@ -35,6 +75,9 @@ const Login = () => {
           <div className="border border-gray-300 w-full py-2 rounded-full pl-3 flex items-center gap-2">
             <img src={assets.email_icon} alt="lock_icon" />
             <input
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
               type="text"
               className="text-sm outline-none text-gray-600"
               placeholder="Full Name"
@@ -45,6 +88,9 @@ const Login = () => {
         <div className="border border-gray-300 w-full py-2 rounded-full pl-3 flex items-center gap-2">
           <img src={assets.email_icon} alt="lock_icon" />
           <input
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
             type="text"
             className="text-sm outline-none text-gray-600"
             placeholder="Email"
@@ -54,6 +100,9 @@ const Login = () => {
         <div className="border border-gray-300 w-full py-2 rounded-full pl-3 flex items-center gap-2">
           <img src={assets.lock_icon} alt="lock_icon" />
           <input
+            name="password"
+            value={formData.password}
+            onChange={handleInputChange}
             type="password"
             className="text-sm outline-none text-gray-600 "
             placeholder="Password"
