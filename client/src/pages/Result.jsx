@@ -1,17 +1,26 @@
 import React, { useState } from "react";
 import { assets } from "../assets/assets.js";
 import { motion } from "framer-motion";
+import { useAppContext } from "../context/AppContext.jsx";
 
 const Result = () => {
-  const [image, setImage] = useState(assets.puppy_img);
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const {
+    handleGenerateImage,
+    image,
+    imageLoading,
+    isImageLoaded,
+    setIsImageLoaded,
+    setImage
+  } = useAppContext();
+
   const [input, setInput] = useState("");
-  // const [isImageLoaded, setIsImageLoaded] = useState(image?true:false);
-  console.log(input);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (input.trim() !== "") {
+      handleGenerateImage({prompt:input});
+    }
   };
   return (
     <motion.div
@@ -31,7 +40,7 @@ const Result = () => {
           </p>
 
           <div className="relative w-full max-w-sm">
-            {isLoading ? (
+            {imageLoading ? (
               // Skeleton loader
               <div className="w-full h-64  bg-gradient-to-r from-pink-300 to-purple-200 rounded animate-pulse relative overflow-hidden">
                 {/* Shimmer effect */}
@@ -73,7 +82,11 @@ const Result = () => {
           {isImageLoaded && (
             <div className="flex gap-2 flex-wrap justify-center text-white text-sm p-0.5 mt-4 rounded-full">
               <p
-                onClick={() => setIsImageLoaded(false)}
+                onClick={() => {
+                  setIsImageLoaded(false);
+                  setImage(assets.puppy_img)
+                  setInput("")
+                }}
                 className="bg-transparent border border-zinc-800 text-black px-8 py-3 rounded-full cursor-pointer"
               >
                 Generate another
