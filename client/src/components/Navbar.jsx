@@ -4,9 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAppContext } from "../context/AppContext.jsx";
 
 const Navbar = () => {
-  const { user, setShowLogin, credit } = useAppContext();
+  const { user, setShowLogin, credit, logoutUser } = useAppContext();
   const navigate = useNavigate();
-  
+
+  const handleLogout = () => {
+    logoutUser();
+  };
+
   return (
     <div className="w-full flex justify-between items-center py-2 ">
       <Link to={"/"} className="flex items-center ">
@@ -31,7 +35,7 @@ const Navbar = () => {
               </span>
             </Link>
             <span className="text-xs sm:text-sm text-gray-600 max-sm:hidden ">
-              Hii {user.split(" ")[0]}
+              Hii {user.name.split(" ")[0]}
             </span>
             <div className="relative group cursor-pointer">
               <img
@@ -40,8 +44,13 @@ const Navbar = () => {
                 alt="profile-icon"
               />
               <div className="absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-12">
-                <ul className="list-none m-0 p-2 bg-white rounded-md shadow-2xl text-sm">
-                  <li className="py-1 px-2 cursor-pointer pr-10">Logout</li>
+                <ul className="list-none m-0 p-2 bg-white rounded-md shadow-2xl text-sm hover:bg-gradient-to-r from-blue-400 to-purple-400">
+                  <li
+                    onClick={handleLogout}
+                    className="py-1 px-2 cursor-pointer pr-10"
+                  >
+                    Logout
+                  </li>
                 </ul>
               </div>
             </div>
