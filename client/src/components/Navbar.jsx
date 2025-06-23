@@ -1,11 +1,10 @@
 import React from "react";
 import { assets } from "../assets/assets.js";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAppContext } from "../context/AppContext.jsx";
 
 const Navbar = () => {
   const { user, setShowLogin, credit, logoutUser } = useAppContext();
-  const navigate = useNavigate();
 
   const handleLogout = () => {
     logoutUser();
@@ -58,12 +57,12 @@ const Navbar = () => {
         ) : (
           //   if user is logged out we will display login and pricing section
           <div className="flex items-center gap-2 sm:gap-5">
-            <p
-              onClick={() => navigate("/buy")}
+            <Link
+              to={"/buy"}
               className="cursor-pointer font-semibold"
             >
               Pricing
-            </p>
+            </Link>
             <button
               onClick={() => setShowLogin(true)}
               className="px-8 py-1 bg-blue-600 hover:scale-105 transition-all ease-in-out duration-500 text-white rounded-2xl cursor-pointer"
