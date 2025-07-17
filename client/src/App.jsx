@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Result from "./pages/Result";
 import BuyCredits from "./pages/BuyCredits";
@@ -7,9 +7,16 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Login from "./components/Login";
 import { useAppContext } from "./context/AppContext";
+import { Toaster } from "react-hot-toast";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 function App() {
-  const { showLogin } = useAppContext();
+  const { user, showLogin, setShowLogin, getUser, loading } = useAppContext();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getUser();
+  }, []);
   return (
     <div className="relative border px-4 sm:px-10 md:px-14 lg:px-28 min-h-screen bg-gradient-to-br from-white via-gray-50 to-slate-100 w-full">
       <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,.02)_1px,transparent_1px)] bg-[size:20px_20px] "></div>
@@ -25,12 +32,22 @@ function App() {
         <div className="absolute bottom-1/5 left-2/5 w-72 h-72 bg-cyan-400/15 rounded-full blur-3xl animate-pulse [animation-delay:2s]"></div>
       </div>
 
+      {loading && <LoadingSpinner />}
+
+      <div>
+        <Toaster position="top-center" reverseOrder={false} />
+        {/* Your app components */}
+      </div>
+
       <div className="relative z-10">
         <Navbar />
-        {showLogin && <Login />}
+        {showLogin && !loading && <Login />}
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/result" element={<Result />} />
+          <Route
+            path="/result"
+            element={<Result /> }
+          />
           <Route path="/buy" element={<BuyCredits />} />
         </Routes>
         <Footer />
