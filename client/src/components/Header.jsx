@@ -25,7 +25,7 @@ const Header = () => {
     >
       <motion.div
         className="flex items-center gap-2 px-4 md:px-8 py-1 backdrop-blur-sm border border-gray-400 shadow-2xl rounded-full text-xs md:text-sm"
-        initial={{ opacity: 0, y: -30 }}
+        initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 0.8 }}
       >
