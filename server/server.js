@@ -19,20 +19,22 @@ app.use(cookieParser());
 
 // Replace with your actual Vercel frontend URL
 const allowedOrigins = [
-  "http://localhost:5173",             // local frontend dev
-  "http://localhost:5000",             // local backend direct call (optional)
-  "https://your-vercel-domain.vercel.app"  // your deployed frontend
+    "http://localhost:5173",             // local frontend dev
+    "http://localhost:5000",             // local backend direct call (optional)
+    "https://imagicon-ai-mern-project.vercel.app/",  // your deployed frontend
+    "https://imagicon-ai-mern-project-vijay-pratap-singh-jadons-projects.vercel.app/",
+    "https://imagicon-ai-mern-git-50e174-vijay-pratap-singh-jadons-projects.vercel.app/"
 ];
 
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true, // Allow cookies if used
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    credentials: true, // Allow cookies if used
 }));
 
 app.use("/api/auth", authRoutes);
