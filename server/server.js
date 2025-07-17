@@ -21,9 +21,9 @@ app.use(cookieParser());
 const allowedOrigins = [
     "http://localhost:5173",             // local frontend dev
     "http://localhost:5000",             // local backend direct call (optional)
-    "https://imagicon-ai-mern-project.vercel.app/",  // your deployed frontend
-    "https://imagicon-ai-mern-project-vijay-pratap-singh-jadons-projects.vercel.app/",
-    "https://imagicon-ai-mern-git-50e174-vijay-pratap-singh-jadons-projects.vercel.app/"
+    "https://imagicon-ai-mern-project.vercel.app",  // your deployed frontend
+    "https://imagicon-ai-mern-project-vijay-pratap-singh-jadons-projects.vercel.app",
+    "https://imagicon-ai-mern-git-50e174-vijay-pratap-singh-jadons-projects.vercel.app"
 ];
 
 app.use(cors({
