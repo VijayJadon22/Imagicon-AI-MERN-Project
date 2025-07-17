@@ -16,9 +16,23 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+
+// Replace with your actual Vercel frontend URL
+const allowedOrigins = [
+  "http://localhost:5173",             // local frontend dev
+  "http://localhost:5000",             // local backend direct call (optional)
+  "https://your-vercel-domain.vercel.app"  // your deployed frontend
+];
+
 app.use(cors({
-    origin: "http://localhost:5173",
-    credentials: true // ✅ Allow sending cookies
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true, // Allow cookies if used
 }));
 
 app.use("/api/auth", authRoutes);
